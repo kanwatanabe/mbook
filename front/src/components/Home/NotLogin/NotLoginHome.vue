@@ -10,10 +10,8 @@
         <p class="subheading font-weight-regular">
           お気に入りのお店をもっと身近に！Let's Booking!!
           <br>Please signin or signup !!
-          <a
-            href="https://community.vuetifyjs.com"
-            target="_blank"
-          >今すぐはじめる</a>
+
+          <a><router-link :to="{ name: 'LoginHome'}">今すぐはじめる</router-link></a>
         </p>
       </v-col>
 
@@ -76,8 +74,8 @@
 </template>
 
 <script>
-import Test from './Test.vue';
-import HomeShops from './HomeShops.vue';
+import Test from '../../Test.vue';
+import HomeShops from '../../Facility/HomeShops.vue';
   export default {
     name: 'HelloWorld',
     components: {

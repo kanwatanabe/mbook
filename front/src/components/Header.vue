@@ -11,7 +11,7 @@
       <v-toolbar-title class= "title">
         <router-link 
         style="text-decoration: none; color: inherit; font-weight: bold; font-size: 1.7em;"
-        to="/">m book</router-link>
+        to="/loginhome">m book</router-link>
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
@@ -55,10 +55,24 @@
            <v-divider></v-divider>
 
           <!-- <v-list-item-content> -->
-            <v-list-item>ユーザー登録</v-list-item>
+            <v-list-item>
+              <router-link :to="{ name: 'UserForm'}">ユーザー登録</router-link>
+            </v-list-item>
           <!-- </v-list-item-content> -->
 
           <v-divider></v-divider>
+
+            <v-list-item>
+              <router-link :to="{ name: 'Users'}">ユーザー 一覧</router-link>
+            </v-list-item>
+
+          <v-divider></v-divider>
+
+            <v-list-item>
+              <router-link :to="{ name: 'UserLogin'}">ユーザーログイン</router-link>
+            </v-list-item>
+
+            <v-divider></v-divider>
           
         </v-list-item-group>
       </v-list>

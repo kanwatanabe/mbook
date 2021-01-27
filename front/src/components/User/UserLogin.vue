@@ -1,72 +1,65 @@
 <template>
-<v-container>
+    <v-container>
     <form>
 
     <v-text-field
-      v-model="shop.name"
+      v-model="login.email"
       :error-messages="nameErrors"
       :counter="10"
-      label="Name"
+      label="Email"
       required
       @input="$v.name.$touch()"
       @blur="$v.name.$touch()"
     ></v-text-field>
-    
-    <v-text-field
-      v-model="shop.profile"
-      :error-messages="nameErrors"
-      label="Profile"
-      required
-      @input="$v.profile.$touch()"
-      @blur="$v.profile.$touch()"
-    ></v-text-field>
 
     <v-text-field
-      v-model="shop.category"
+      v-model="login.password"
       :error-messages="nameErrors"
-      label="Category"
+      label="Password"
       required
-      @input="$v.category.$touch()"
-      @blur="$v.category.$touch()"
+      @input="$v.password_digest.$touch()"
+      @blur="$v.password_digest.$touch()"
     ></v-text-field>
     
     <v-btn
       class="mr-4"
       @click="submit"
     >
-      submit
+      login
     </v-btn>
     <v-btn @click="clear">
       clear
     </v-btn>
   </form>
+
+  <button @click="signOut">ログアウト</button>
+
 </v-container>
 </template>
 
 <script>
- import { validationMixin } from 'vuelidate';
+import { validationMixin } from 'vuelidate';
  import { required, maxLength } from 'vuelidate/lib/validators';
 
- import axios from 'axios';
+//  import axios from 'axios';
+//  import router from '../../routes/route'
 
-  export default {
-    
-    // バリデーション-----------------------------------
+export default {
+
+      // バリデーション-----------------------------------
     mixins: [validationMixin],
 
     validations: {
       name: { required, maxLength: maxLength(10) },
-      profile: { required, maxLength: maxLength(10) },
-      category: { required, maxLength: maxLength(10) },
+      password_digest: { required, maxLength: maxLength(10) },
     },
     // ------------------------------------------------
 
     data: () => ({
       
-      shop: {
-        name: '',
-        profile: '',
-        category: '',
+      login: {
+        email: '',
+        password: '',
       }
     }),
 
@@ -94,37 +87,47 @@
     },
 
     methods: {
-      submit () {
-        // this.$v.$touch()
-        axios.post('http://localhost:3000/facility/create', {shop: this.shop})
+
+      // submit () {
+      //   // this.$v.$touch()
+      //   axios.post('http://localhost:3000/v1/auth/sign_in', {
+      //     email: this.login.email,
+      //     password: this.login.password,
+      //   })
+
+         submit () {
+           this.$store.dispatch('signIn', { email: this.login.email, password: this.login.password})
+         },
         // ,{
         //       name: this.name,
         //       profile: this.profile,
         //       category: this.category
 
         // }
+
+
         // .then(response => {
-        // //     this.facilitys = response.data;
-        //     const data = response.data
-        //     console.log(data.name);
-        // // })
-        // // .catch(error => {
-        // //       console.log(error);
+        //     console.log(response);
+        //     router.push({name: "home"})
+        // })
+        // .catch(error => {
+        //       console.log(error);
         // });
-      },
+      // },
 
       clear () {
         this.$v.$reset()
-        this.name = ''
-        this.profile = ''
-        this.category = ''
+        this.login.email = ''
+        this.login.password = ''
       },
+
+
+
+      signOut() {
+        this.$store.dispatch('signOut')
+      }
     },
 
-
-  }
+    
+}
 </script>
-
-<style>
-
-</style>

@@ -31,6 +31,11 @@ class FacilityController < ApplicationController
     @shop.save
   end
 
+  def test
+    @user = User.all
+    render json: @user
+  end
+
   private
 
   def shop_params 
